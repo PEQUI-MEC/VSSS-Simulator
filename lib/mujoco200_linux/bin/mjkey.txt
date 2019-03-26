@@ -1,0 +1,20 @@
+MuJoCo Pro Trial license activation key, number 129730, type 6.
+
+Issued to Thiago Henrique de Oliveira <thiago-henrique@outlook.com>.
+
+Expires December 13, 2018.
+
+This file activates MuJoCo Pro on a single computer with id:
+LINUX_ba61md_414v0a20525e4116ea5d3b688d93407c190
+
+Do not modify this file. Its entire content, including the
+plain text section, is used by the activation manager.
+
+6010ad6a12d686faeed0a1d029dc9a19a006c3377dd7abf452acf834988c8609
+cdb5553daed13bcd455f0a1c04823ec0677229e57d88ab9d54141a87e6990516
+07606daeb3719c5f6359644e84fabfcd19b5f5a9fbeb954fce2afde11fd81bd3
+cc48399f08d9ae89923d93b0dc1721d586afbbc5abbf86bd2e65b3abd450d89d
+4fe06278aa5632a72ddcfe8494e1d6d35705df46dc30decb9cc2aff7d85892fb
+bbd60adeba3a7ee8ec59c21a51af6b3ebb1edb64f1deecb1f44a9327e40af06f
+e6b8d2bb4017757260bb7f385c3d7c5fad95e5807bea1750fc042643b5e0fbb8
+5cabcf81d89edb598e2e3b4658c5081243e0075ab7490ec6d4e997f80bccc69c
