@@ -1,0 +1,4 @@
+cmake-build-debug/
+vsss_msgs/build/
+.idea/
+mjkey.txt

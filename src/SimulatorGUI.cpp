@@ -43,12 +43,12 @@ void SimulatorGUI::run() {
 		// swap OpenGL buffers (blocking call due to v-sync)
 		glfwSwapBuffers(window);
 
-		auto ball = simulator->get_ball();
-		auto direction = Point{ball.x + 0.1f, ball.y + 0.1f};
-        auto direction2 = Point{ball.x - 0.1f, ball.y - 0.1f};
+//		auto ball = simulator->get_ball();
+//		auto direction = Point{ball.x + 0.1f, ball.y + 0.1f};
+//        auto direction2 = Point{ball.x - 0.1f, ball.y - 0.1f};
 
-        simulator->robots[0].control.set_target(Command::UVF,
-                                                {ball, to_rads(45), 0.8, 7, direction, 2});
+//        simulator->robots[0].control.set_target(Command::UVF,
+//                                                {ball, to_rads(45), 0.8, 7, direction, 2});
 
 		// process pending GUI events, call GLFW callbacks
 		glfwPollEvents();

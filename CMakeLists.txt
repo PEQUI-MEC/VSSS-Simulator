@@ -17,11 +17,8 @@ FIND_PACKAGE(PkgConfig REQUIRED)
 pkg_search_module(GLFW3 REQUIRED glfw3)
 find_package(X11 REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)
-
-#add_message_files(FILES teste.msg)
-
-#generate_messages(DEPENDENCIES teste)
+find_package(catkin REQUIRED COMPONENTS
+        roscpp rospy std_msgs geometry_msgs vsss_msgs)
 
 #Define arquivos a serem compilados. Novos arquivos devem ser inclusos aqui
 set(SOURCE_FILES
@@ -30,6 +27,7 @@ set(SOURCE_FILES
         src/SimuRobotControl.h src/include.h src/SimuRobot.h)
 
 link_directories(${MUJOCO_BIN_DIR})
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 #Define diretorios com .h e .hpp. Novos diretorios devem ser inclusos aqui
 include_directories(
@@ -37,9 +35,9 @@ include_directories(
     ${GLFW3_INCLUDE_DIR}
     ${X11_INCLUDE_DIR}
     ${MUJOCO_INCLUDE_DIR}
-        ${catkin_INCLUDE_DIRS})
+    ${catkin_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS "-std=c++17 -mavx -pthread -Wl,-rpath -lmujoco200nogl")
+set(CMAKE_CXX_FLAGS "-std=c++17 -O3 -mavx -pthread -Wl,-rpath -lmujoco200nogl")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

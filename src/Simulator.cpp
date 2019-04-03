@@ -1,7 +1,9 @@
 #include "Simulator.h"
+#include <utility>
 
 Simulator::Simulator(const std::string &key_path,
-                     const std::string &model_path) {
+                     const std::string &model_path,
+					 ros::NodeHandle& nh) {
 //	Initialize Mujoco
 	mj_activate(key_path.c_str());
 
@@ -22,8 +24,8 @@ Simulator::Simulator(const std::string &key_path,
 //	create scene and context
 	mjv_makeScene(model, &scn, 2000);
 
-	add_robots();
-	ball_id = mj_name2id(model, mjOBJ_BODY, "ball");
+	add_robots(nh);
+	ball = Ball(mj_name2id(model, mjOBJ_BODY, "ball"), nh);
 
 	last_control_update = data->time;
 }
@@ -34,6 +36,9 @@ void Simulator::step() {
 //		Run control for each robot
 		double elapsed = data->time - last_control_update;
 		if (elapsed >= 0.01) {
+//			Run callbacks for each robot
+			ros::spinOnce();
+//			Run control for each robot
 			run_robot_control(elapsed);
 			last_control_update = data->time;
 		}
@@ -43,6 +48,11 @@ void Simulator::step() {
 	}
 
 	mjv_updateScene(model, data, &opt, nullptr, &cam, mjCAT_ALL, &scn);
+
+	ball.publish_position(get_ball());
+	for (auto& [id, robot] : robots) {
+		robot.publish_pose();
+	}
 }
 
 
@@ -88,14 +98,16 @@ float Simulator::get_orientation(int robot_id) {
 }
 
 Point Simulator::get_ball() {
-	return Point::from_simulator_point(data->xpos[ball_id * 3],
-									   data->xpos[ball_id * 3 + 1]);
+	return Point::from_simulator_point(data->xpos[ball.id * 3],
+									   data->xpos[ball.id * 3 + 1]);
 }
 
-void Simulator::add_robots() {
-	robots[0] = SimuRobot{model, 1};
-	robots[1] = SimuRobot{model, 2};
-	robots[2] = SimuRobot{model, 3};
+void Simulator::add_robots(ros::NodeHandle& nh) {
+//	emplace is required due to ROS storing pointers for each robot
+//	during the execution of their constructors
+	robots.try_emplace(0, model, 1, nh);
+	robots.try_emplace(1, model, 2, nh);
+	robots.try_emplace(2, model, 3, nh);
 }
 
 Simulator::~Simulator() {

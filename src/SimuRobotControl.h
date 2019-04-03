@@ -17,6 +17,8 @@ public:
 	Wheel left{};
 	Wheel right{};
 
+	float uvf_ref_distance = 0.1;
+
 	void set_target(Command command, Target target);
 	WheelVelocity control_step(Point position, float orientation,
 	                           WheelVelocity wheel_vel, float time);

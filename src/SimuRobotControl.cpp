@@ -45,11 +45,11 @@ TargetVelocity SimuRobotControl::position_control() {
 
 TargetVelocity SimuRobotControl::uvf_control() {
 	auto targ_pos = target.position;
-	auto uvf_ref = target.uvf_ref;
+	auto uvf_ref = target.position + Vector {uvf_ref_distance, target.theta};
 	float state_to_targ = std::atan2(targ_pos.y - position.y, targ_pos.x - position.x);
 	float state_to_ref = std::atan2(uvf_ref.y - position.y, uvf_ref.x - position.x);
 	float fi = wrap(state_to_ref - state_to_targ);
-	float uvf_target_theta = wrap(state_to_targ - target.uvf_n * fi);
+	float uvf_target_theta = wrap(state_to_targ - uvf_ref_distance * fi);
 	return vector_control(uvf_target_theta, target.velocity, false);
 }
 

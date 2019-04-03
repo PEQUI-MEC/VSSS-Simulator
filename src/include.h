@@ -48,8 +48,17 @@ struct WheelVelocity {
 	}
 };
 
+struct Vector {
+    float size;
+    float orientation;
+};
+
 struct Point {
 	float x; float y;
+	Point operator+(const Vector& vector) const {
+        return Point{x + vector.size * std::cos(vector.orientation),
+                     y + vector.size * std::sin(vector.orientation)};
+	}
 	std::pair<double, double> to_simulator_point(double x, double y) {
 		return { (float) x - field_size_x / 2,
 		         (float) y - field_size_y / 2};
@@ -78,16 +87,20 @@ struct TargetVelocity {
 };
 
 enum class Command {
-	Position, Vector, UVF, Orientation, Velocity, None
+	None = 0, Position = 1, Vector = 2, UVF = 3, Orientation = 4, Velocity = 5
 };
 
 struct Target {
+	friend std::ostream &operator<<(std::ostream &os, const Target &target) {
+		os << "position: " << target.position << " theta: " << target.theta << " velocity: " << target.velocity
+		   << " angular_vel: " << target.angular_vel;
+		return os;
+	}
+
 	Point position = {0, 0};
 	float theta = 0;
 	float velocity = 0;
 	float angular_vel = 0;
-	Point uvf_ref = {0, 0};
-	float uvf_n = 0;
 };
 
 constexpr float wrap(float angle) {
