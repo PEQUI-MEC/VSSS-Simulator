@@ -7,7 +7,8 @@
 #include <ros/ros.h>
 //#include "vsss_simulator/vsss_control.h"
 #include "vsss_msgs/Control.h"
-#include "geometry_msgs/Pose2D.h"
+#include "geometry_msgs/PoseStamped.h"
+#include <tf2/LinearMath/Quaternion.h>
 
 class SimuRobotIDs {
 public:
@@ -30,7 +31,8 @@ public:
 class SimuRobot {
     using Twist = geometry_msgs::Twist;
     using Control = vsss_msgs::Control;
-    using Pose2D = geometry_msgs::Pose2D;
+    using PoseStamped = geometry_msgs::PoseStamped;
+
 public:
 	SimuRobotIDs ids;
 	SimuRobotControl control{};
@@ -47,19 +49,26 @@ public:
                                   static_cast<float>(msg.velocity.angular.z)});
     }
 
-    void publish_pose() {
-        geometry_msgs::Pose2D pose_msg;
-        pose_msg.x = control.position.x;
-        pose_msg.y = control.position.y;
-        pose_msg.theta = control.orientation;
-        pose_pub.publish(pose_msg);
+    void publish_pose(uint32_t seq, ros::Time now, tf2::Quaternion orientation) {
+        PoseStamped msg;
+        msg.header.seq = seq;
+        msg.header.stamp = now;
+        msg.header.frame_id = "";
+        msg.pose.position.x = control.position.x;
+        msg.pose.position.y = control.position.y;
+        msg.pose.position.z = 0;
+        msg.pose.orientation.w = orientation.w();
+        msg.pose.orientation.x = orientation.x();
+        msg.pose.orientation.y = orientation.y();
+        msg.pose.orientation.z = orientation.z();
+        pose_pub.publish(msg);
     }
 
 	SimuRobot() = default;
 	SimuRobot(mjModel *model, int id, ros::NodeHandle& nh): ids(model, id) {
         control_sub = nh.subscribe("robot" + std::to_string(id) + "/control", 1,
                 &SimuRobot::on_command_received, this);
-        pose_pub = nh.advertise<Pose2D>("robot" + std::to_string(id) + "/pose", 1);
+        pose_pub = nh.advertise<PoseStamped>("robot" + std::to_string(id) + "/pose", 1);
 	}
 };
 

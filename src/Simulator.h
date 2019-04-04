@@ -11,7 +11,7 @@
 #include "SimuRobotControl.h"
 #include "SimuRobot.h"
 #include <ros/ros.h>
-#include <geometry_msgs/Point.h>
+#include <geometry_msgs/PointStamped.h>
 
 struct Ball {
 	int id = -1;
@@ -19,14 +19,17 @@ struct Ball {
 
 	Ball() = default;
 	Ball(int id, ros::NodeHandle& nh): id(id) {
-		position_pub = nh.advertise<geometry_msgs::Point>("ball/position", 1);
+		position_pub = nh.advertise<geometry_msgs::PointStamped>("ball/position", 1);
 	}
 
-	void publish_position(Point position) {
-		geometry_msgs::Point position_msg;
-		position_msg.x = position.x;
-		position_msg.y = position.y;
-		position_msg.z = 0;
+	void publish_position(uint32_t seq, ros::Time now, Point position) {
+		geometry_msgs::PointStamped position_msg;
+		position_msg.header.stamp = now;
+        position_msg.header.frame_id = "";
+		position_msg.header.seq = seq;
+		position_msg.point.x = position.x;
+		position_msg.point.y = position.y;
+		position_msg.point.z = 0;
 		position_pub.publish(position_msg);
 	}
 };
@@ -46,6 +49,8 @@ public:
 	double last_control_update = 0;
 	std::unordered_map<int, SimuRobot> robots{};
 
+	int seq = 0;
+
 public:
 	Simulator(const std::string &key_path, const std::string &model_path, ros::NodeHandle& nh);
 	~Simulator();
@@ -57,6 +62,8 @@ public:
 	float get_orientation(int robot_id);
 	Point get_ball();
 	void add_robots(ros::NodeHandle& nh);
+
+    tf2::Quaternion get_quaternion(int robot_id);
 };
 
 

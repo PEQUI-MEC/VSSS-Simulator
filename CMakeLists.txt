@@ -18,7 +18,7 @@ pkg_search_module(GLFW3 REQUIRED glfw3)
 find_package(X11 REQUIRED)
 
 find_package(catkin REQUIRED COMPONENTS
-        roscpp rospy std_msgs geometry_msgs vsss_msgs)
+        tf2 roscpp rospy std_msgs geometry_msgs vsss_msgs)
 
 #Define arquivos a serem compilados. Novos arquivos devem ser inclusos aqui
 set(SOURCE_FILES

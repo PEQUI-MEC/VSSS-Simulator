@@ -49,10 +49,12 @@ void Simulator::step() {
 
 	mjv_updateScene(model, data, &opt, nullptr, &cam, mjCAT_ALL, &scn);
 
-	ball.publish_position(get_ball());
+	auto now = ros::Time::now();
+    ball.publish_position(seq, now, get_ball());
 	for (auto& [id, robot] : robots) {
-		robot.publish_pose();
+        robot.publish_pose(seq, now, get_quaternion(id));
 	}
+	seq++;
 }
 
 
@@ -95,6 +97,15 @@ float Simulator::get_orientation(int robot_id) {
 	auto d = data->xquat[id * 4 + 3];
     return (float) std::atan2(2 * (a * d + b * c),
                               1 - 2 * (std::pow(c, 2) + std::pow(d, 2)));
+}
+
+tf2::Quaternion Simulator::get_quaternion(int robot_id) {
+    auto id = robots[robot_id].ids.body_id;
+    auto w = data->xquat[id * 4];
+    auto x = data->xquat[id * 4 + 1];
+    auto y = data->xquat[id * 4 + 2];
+    auto z = data->xquat[id * 4 + 3];
+    return {x, y, z, w};
 }
 
 Point Simulator::get_ball() {
