@@ -24,6 +24,11 @@ public:
 	float target_vel = 0;
 
 	float pid_step(float vel, float time) {
+	    if (target_vel == 0) {
+	        prev_error = 0;
+	        error_acc = 0;
+            return 0;
+	    }
 		float error = target_vel - vel;
 		float deriv_error = (error - prev_error) / time;
 		error_acc += error * time;

@@ -5,6 +5,7 @@
 #include <utility>
 #include <include.h>
 #include <mujoco.h>
+#include <ros/time.h>
 
 class SimuRobotControl {
 public:
@@ -20,6 +21,8 @@ public:
 	float uvf_ref_distance = 0.1;
 	float uvf_n = 1.8;
 
+	ros::Time last_msg_time;
+
 	void set_target(Command command, Target target);
 	WheelVelocity control_step(Point position, float orientation,
 	                           WheelVelocity wheel_vel, float time);
@@ -31,6 +34,7 @@ public:
 	TargetVelocity vector_control(float target_theta,
 	                              float velocity, bool enable_backwards);
 	bool backwards_select(float theta_error);
+	void stop();
 };
 
 #endif //VSSS_SIMU_ROBOT_H

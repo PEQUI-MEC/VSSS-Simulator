@@ -62,6 +62,7 @@ public:
 	float get_orientation(int robot_id);
 	Point get_ball();
 	void add_robots(ros::NodeHandle& nh);
+	void stop_robots();
 
     tf2::Quaternion get_quaternion(int robot_id);
 };

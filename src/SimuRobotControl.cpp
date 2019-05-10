@@ -16,6 +16,7 @@ WheelVelocity SimuRobotControl::control_step(Point position, float orientation,
 }
 
 TargetVelocity SimuRobotControl::run_control() {
+    if (ros::Time::now().nsec - last_msg_time.nsec > 100*1000*1000) stop();
 	switch (command) {
 		case Command::Position:
 			return position_control();
@@ -66,6 +67,10 @@ TargetVelocity SimuRobotControl::vector_control(float target_theta,
 	} else {
 		return {velocity * std::cos(error), 15 * error};
 	}
+}
+
+void SimuRobotControl::stop() {
+    command = Command::None;
 }
 
 bool SimuRobotControl::backwards_select(float theta_error) {

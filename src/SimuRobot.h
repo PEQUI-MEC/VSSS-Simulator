@@ -41,6 +41,7 @@ public:
     ros::Publisher pose_pub;
 
     void on_command_received(const Control &msg) {
+        control.last_msg_time = ros::Time::now();
         control.set_target(static_cast<Command>(msg.command),
                            Target{{static_cast<float>(msg.pose.x),
                                    static_cast<float>(msg.pose.y)},
@@ -69,6 +70,7 @@ public:
         control_sub = nh.subscribe("robot" + std::to_string(id) + "/control", 1,
                 &SimuRobot::on_command_received, this);
         pose_pub = nh.advertise<PoseStamped>("robot" + std::to_string(id) + "/pose", 1);
+        control.last_msg_time = ros::Time::now();
 	}
 };
 

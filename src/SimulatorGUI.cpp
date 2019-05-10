@@ -12,7 +12,7 @@ SimulatorGUI::SimulatorGUI(Simulator &simulator) {
 	SimulatorGUI::simulator = &simulator;
 
 //	create window, make OpenGL context current, request v-sync
-	window = glfwCreateWindow(1024, 720, "VSSS", nullptr, nullptr);
+	window = glfwCreateWindow(800, 600, "VSSS", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 
@@ -43,13 +43,6 @@ void SimulatorGUI::run() {
 		// swap OpenGL buffers (blocking call due to v-sync)
 		glfwSwapBuffers(window);
 
-//		auto ball = simulator->get_ball();
-//		auto direction = Point{ball.x + 0.1f, ball.y + 0.1f};
-//        auto direction2 = Point{ball.x - 0.1f, ball.y - 0.1f};
-
-//        simulator->robots[0].control.set_target(Command::UVF,
-//                                                {ball, to_rads(45), 0.8, 7, direction, 2});
-
 		// process pending GUI events, call GLFW callbacks
 		glfwPollEvents();
 	}
@@ -60,6 +53,8 @@ void SimulatorGUI::keyboard_callback(GLFWwindow *window, int key, int scancode, 
 	if (act == GLFW_PRESS && key == GLFW_KEY_BACKSPACE) {
 		mj_resetData(simulator->model, simulator->data);
 		mj_forward(simulator->model, simulator->data);
+        simulator->last_control_update = simulator->data->time;
+        simulator->stop_robots();
 	}
 }
 

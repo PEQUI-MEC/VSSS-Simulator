@@ -116,9 +116,15 @@ Point Simulator::get_ball() {
 void Simulator::add_robots(ros::NodeHandle& nh) {
 //	emplace is required due to ROS storing pointers for each robot
 //	during the execution of their constructors
-	robots.try_emplace(0, model, 1, nh);
-	robots.try_emplace(1, model, 2, nh);
-	robots.try_emplace(2, model, 3, nh);
+    for (int i = 0; i < 3; i++) {
+        robots.try_emplace(i, model, i + 1, nh);
+    }
+}
+
+void Simulator::stop_robots() {
+    for (auto& [i, robot] : robots) {
+        robot.control.stop();
+    }
 }
 
 Simulator::~Simulator() {
