@@ -214,6 +214,120 @@
     </body>
   </worldbody>
 
+  <worldbody>
+    <body name="robot_04" pos="0.2 0 0.04" axisangle="0 0 1 0">
+      <joint type="free" name="Robot_04"/>
+      <inertial pos="0 0 -0.02" mass="396" diaginertia="0.132 0.2244 0.33"/>
+      <geom conaffinity="1" contype="1"  size="0.04 0.03 0.03" rgba="0 0 1 1" type="box"/>
+      <body name="left_wheel_04" pos="0 0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="left_wheel_joint_04" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="right_wheel_04" pos="0 -0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="right_wheel_joint_04" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="uniform_04" pos="0 0 0.0375">
+        <!-- <inertial pos="0 0 0" mass="1"/> -->
+        <geom name="hat04" conaffinity="1" contype="1" size="0.0405 0.0405 0.0075" material="tag04" type="box"/>
+        <body name="front_04" pos="0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="back_04" pos="-0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="left_04" pos="0 0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+        <body name="right_04" pos="0 -0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <worldbody>
+    <body name="robot_05" pos="0.4 0 0.04" axisangle="0 0 1 0">
+      <joint type="free" name="Robot_05"/>
+      <inertial pos="0 0 -0.02" mass="396" diaginertia="0.132 0.2244 0.33"/>
+      <geom conaffinity="1" contype="1"  size="0.04 0.03 0.03" rgba="0 0 1 1" type="box"/>
+      <body name="left_wheel_05" pos="0 0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="left_wheel_joint_05" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="right_wheel_05" pos="0 -0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="right_wheel_joint_05" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="uniform_05" pos="0 0 0.0375">
+        <!-- <inertial pos="0 0 0" mass="1"/> -->
+        <geom name="hat05" conaffinity="1" contype="1" size="0.0405 0.0405 0.0075" material="tag05" type="box"/>
+        <body name="front_05" pos="0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="back_05" pos="-0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="left_05" pos="0 0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+        <body name="right_05" pos="0 -0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <worldbody>
+    <body name="robot_06" pos="0.6 0 0.04" axisangle="0 0 1 0">
+      <joint type="free" name="Robot_06"/>
+      <inertial pos="0 0 -0.02" mass="396" diaginertia="0.132 0.2244 0.33"/>
+      <geom conaffinity="1" contype="1"  size="0.04 0.03 0.03" rgba="0 0 1 1" type="box"/>
+      <body name="left_wheel_06" pos="0 0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="left_wheel_joint_06" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="right_wheel_06" pos="0 -0.035 -0.002" quat="0.707141 0.707073 0 0" >
+        <joint name="right_wheel_joint_06" pos="0 0 0" axis="0 0 -1" type="hinge"/>
+        <inertial pos="0 0 0" mass="12" diaginertia="0.002736 0.002736 0.0054"/>
+        <geom conaffinity="1" contype="1" size="0.03 0.003" rgba="0 1 1 1" type="cylinder"/>
+      </body>
+      <body name="uniform_06" pos="0 0 0.0375">
+        <!-- <inertial pos="0 0 0" mass="1"/> -->
+        <geom name="hat06" conaffinity="1" contype="1" size="0.0405 0.0405 0.0075" material="tag06" type="box"/>
+        <body name="front_06" pos="0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="back_06" pos="-0.04 0 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0005 0.0405 0.03" material="body" type="box"/>
+        </body>
+        <body name="left_06" pos="0 0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+        <body name="right_06" pos="0 -0.04 -0.0375">
+          <!-- <inertial pos="0 0 0" mass="1"/> -->
+          <geom conaffinity="1" contype="1" size="0.0405 0.0005 0.03" material="body" type="box"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
   <actuator>
     <velocity name="l1" joint="left_wheel_joint_01" kv="1"/>
     <velocity name="r1" joint="right_wheel_joint_01" kv="1"/>
@@ -221,5 +335,11 @@
     <velocity name="r2" joint="right_wheel_joint_02" kv="1"/>
     <velocity name="l3" joint="left_wheel_joint_03" kv="1"/>
     <velocity name="r3" joint="right_wheel_joint_03" kv="1"/>
+    <velocity name="l4" joint="left_wheel_joint_04" kv="1"/>
+    <velocity name="r4" joint="right_wheel_joint_04" kv="1"/>
+    <velocity name="l5" joint="left_wheel_joint_05" kv="1"/>
+    <velocity name="r5" joint="right_wheel_joint_05" kv="1"/>
+    <velocity name="l6" joint="left_wheel_joint_06" kv="1"/>
+    <velocity name="r6" joint="right_wheel_joint_06" kv="1"/>
   </actuator>
 </mujoco>
