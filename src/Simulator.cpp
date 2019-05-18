@@ -3,17 +3,12 @@
 
 Simulator::Simulator(const std::string &key_path,
                      const std::string &model_path,
-					 ros::NodeHandle& nh) {
+					 ros::NodeHandle& nh) : nh(nh) {
 //	Initialize Mujoco
 	mj_activate(key_path.c_str());
+	load_model(6, model_path);
 
-	model = mj_loadXML(model_path.c_str(), nullptr, nullptr, 1000);
-	if (!model) throw std::string("Could not load model");
-
-	data = mj_makeData(model);
-	if (!data) throw std::string("Could not load data");
-
-	if (!glfwInit()) throw "Could not initialize GLFW";
+	if (!glfwInit()) throw std::runtime_error("Could not initialize GLFW");
 
 //	initialize visualization data structures
 	mjv_defaultCamera(&cam);
@@ -24,10 +19,19 @@ Simulator::Simulator(const std::string &key_path,
 //	create scene and context
 	mjv_makeScene(model, &scn, 2000);
 
-	add_robots(nh);
+    add_robots(6);
 	ball = Ball(mj_name2id(model, mjOBJ_BODY, "ball"), nh);
 
 	last_control_update = data->time;
+}
+
+void Simulator::load_model(int robot_count, const std::string &model_path) {
+    model = mj_loadXML(model_path.c_str(), nullptr, nullptr, 1000);
+    if (!model) throw std::runtime_error("Could not load model");
+    data = mj_makeData(model);
+    if (!data) throw std::runtime_error("Could not load data");
+    add_robots(robot_count);
+    stop_robots();
 }
 
 void Simulator::step() {
@@ -113,18 +117,19 @@ Point Simulator::get_ball() {
 									   data->xpos[ball.id * 3 + 1]);
 }
 
-void Simulator::add_robots(ros::NodeHandle& nh) {
+void Simulator::add_robots(int robot_count) {
+    robots.clear();
 //	emplace is required due to ROS storing pointers for each robot
 //	during the execution of their constructors
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < robot_count; i++)
         robots.try_emplace(i, model, i + 1, nh);
-    }
 }
 
 void Simulator::stop_robots() {
     for (auto& [i, robot] : robots) {
         robot.control.stop();
     }
+    last_control_update = 0;
 }
 
 Simulator::~Simulator() {

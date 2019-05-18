@@ -50,12 +50,24 @@ void SimulatorGUI::run() {
 
 void SimulatorGUI::keyboard_callback(GLFWwindow *window, int key, int scancode, int act, int mods) {
 //	backspace: reset simulation
-	if (act == GLFW_PRESS && key == GLFW_KEY_BACKSPACE) {
-		mj_resetData(simulator->model, simulator->data);
-		mj_forward(simulator->model, simulator->data);
-        simulator->last_control_update = simulator->data->time;
-        simulator->stop_robots();
-	}
+    if (act == GLFW_PRESS) {
+        switch (key) {
+
+            case GLFW_KEY_BACKSPACE:
+                mj_resetData(simulator->model, simulator->data);
+                mj_forward(simulator->model, simulator->data);
+                simulator->stop_robots();
+                break;
+            case GLFW_KEY_1:
+                simulator->load_model(3, "../src/scene_1team.xml");
+                break;
+            case GLFW_KEY_2:
+                simulator->load_model(6, "../src/scene_2teams.xml");
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 

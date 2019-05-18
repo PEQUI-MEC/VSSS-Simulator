@@ -36,17 +36,18 @@ struct Ball {
 
 class Simulator {
 public:
-	mjModel *model;  // MuJoCo model
-	mjData *data;    // Mujoco data
+	mjModel *model = nullptr;  // MuJoCo model
+	mjData *data = nullptr;    // Mujoco data
 
-	mjvCamera cam;              // abstract camera
-	mjvOption opt;              // visualization options
-	mjvScene scn;               // abstract scene
-	mjrContext con;             // custom GPU context
+	mjvCamera cam{};              // abstract camera
+	mjvOption opt{};              // visualization options
+	mjvScene scn{};               // abstract scene
+	mjrContext con{};             // custom GPU context
 
 	Ball ball;
 
 	double last_control_update = 0;
+    ros::NodeHandle& nh;
 	std::unordered_map<int, SimuRobot> robots{};
 
 	int seq = 0;
@@ -61,8 +62,9 @@ public:
 	Point get_position(int robot_id);
 	float get_orientation(int robot_id);
 	Point get_ball();
-	void add_robots(ros::NodeHandle& nh);
+	void add_robots(int robot_count);
 	void stop_robots();
+	void load_model(int robot_count, const std::string &model_path);
 
     tf2::Quaternion get_quaternion(int robot_id);
 };
