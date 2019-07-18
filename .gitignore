@@ -1,4 +1,7 @@
 cmake-build-debug/
 vsss_msgs/build/
 .idea/
+build/
+vsss_msgs_ws/
+!vsss_msgs_ws/src/vsss_msgs/
 mjkey.txt
